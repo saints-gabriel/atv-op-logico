@@ -1,8 +1,8 @@
 import { Aluno } from "../model/student.model.js";
 import { Op } from 'sequelize'
 
-export const studentController = {
-    getAllStudentsInRisk: async (req, res) => {
+
+    export async function getAllStudentsInRisk(req, res) {
         try {
             const allStudents = await Aluno.findAll({
             attributes: ['nome','email','mediaGeral'],
@@ -24,20 +24,21 @@ export const studentController = {
         catch(e){
             res.status(500).json({message: 'Erro ao buscar ' + e})
         }
-    },
-    getById: async (req, res) => {
-        try{
-            const studentId = await Aluno.findByPK(req.params.id)
-            if (!studentId){
-            res.status(404).json({erro: "Estudante nao encontrado!"});
+    }
+
+    export async function getById(req, res){
+    try {
+        const studentId = await Aluno.findByPk(req.params.id);
+        if (!studentId) {
+            return res.status(404).json({ erro: "Estudante nao encontrado!" });
         }
-            res.status(201).json(studentId);
-        }
-        catch(e){
-            res.status(500).json(e)
-        }
-    },
-    createStudent: (req, res) => {
+        res.status(200).json(studentId);
+    } catch (e) {
+        res.status(500).json(e);
+    }
+    }
+
+    export async function createStudent(req, res){
         try {
             const { nome, email, senha, mediaGeral } = req.body;
 
@@ -54,5 +55,3 @@ export const studentController = {
         res.status(500).json(error);
     }
     }
-
-} 

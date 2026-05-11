@@ -1,10 +1,10 @@
-import { Router } from "express";
-import * as controller from '../controller/student.controller.js'
+import { getAllStudentsInRisk, getById, createStudent } from '../controller/student.controller.js'
+import { Router } from 'express';
 
 const studentRouter = Router()
 
-studentRouter.get('/', controller.getAllStudentsInRisk);
-studentRouter.get('/:id', controller.getByID);
-studentRouter.post('/', controller.createStudent);
+studentRouter.get('/', getAllStudentsInRisk);
+studentRouter.get('/:id', getById);
+studentRouter.post('/', createStudent);
 
-export default studentRouter;
+export default studentRouter 
